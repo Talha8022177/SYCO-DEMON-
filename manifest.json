@@ -1,0 +1,10 @@
+{
+  "name": "SYCO DEMON Personal Panel",
+  "short_name": "SYCO DEMON",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#090909",
+  "description": "Personal offline-friendly dashboard"
+}

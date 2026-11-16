@@ -1,80 +1,59 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090909">
+<meta name="description" content="SYCO DEMON personal dashboard">
+<link rel="manifest" href="./manifest.json">
 <title>SYCO DEMON</title>
 <style>
-*{box-sizing:border-box}
-body{
-margin:0;background:#090909;color:white;
-font-family:Arial,sans-serif;
-}
-header{
-padding:25px 15px;text-align:center;
-background:#151515;border-bottom:2px solid red;
-}
-h1{color:#ff2020;letter-spacing:3px}
-main{padding:20px;max-width:600px;margin:auto}
-.card{
-background:#171717;padding:20px;
-margin:15px 0;border-radius:14px;
-border:1px solid #333;
-}
-button{
-background:#e00000;color:white;
-border:0;padding:12px 20px;
-border-radius:8px;font-weight:bold;
-}
-input{
-width:100%;padding:12px;
-margin:10px 0;background:#222;
-color:white;border:1px solid #555;
-border-radius:8px;
-}
-footer{text-align:center;padding:25px;color:#888}
+:root{--bg:#080808;--panel:#151515;--line:#292929;--red:#ef2020;--muted:#aaa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -15%,#3a0808 0,transparent 38%),var(--bg);color:#f7f7f7;font:15px system-ui,Arial,sans-serif;min-height:100vh}
+header{padding:26px 18px 20px;text-align:center;border-bottom:1px solid #401010;background:#0b0b0beF}
+.logo{font-size:13px;letter-spacing:5px;color:#ff6262;font-weight:800}h1{font-size:29px;letter-spacing:3px;margin:7px 0;color:#fff}header p{margin:0;color:var(--muted);font-size:12px;letter-spacing:2px}
+main{max-width:760px;margin:auto;padding:18px 15px 40px}.welcome{padding:20px;border:1px solid #4b1717;background:linear-gradient(135deg,#211010,#121212 65%);border-radius:18px;margin-bottom:15px}
+.welcome h2{margin:0 0 6px;font-size:21px}.welcome p{margin:0;color:#bbb}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.card h3{font-size:15px;margin:0 0 12px}.wide{grid-column:1/-1}
+input,textarea{width:100%;background:#090909;color:white;border:1px solid #383838;border-radius:10px;padding:12px;font:inherit;outline:none}
+textarea{min-height:115px;resize:vertical}input:focus,textarea:focus{border-color:var(--red)}
+button{border:0;border-radius:10px;padding:11px 14px;background:var(--red);color:white;font-weight:750;margin-top:10px;cursor:pointer}
+button.secondary{background:#292929;border:1px solid #444}button.danger{background:#581414}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.status{font-size:12px;color:#aaa;margin-top:10px}.stat{font-size:24px;font-weight:800;color:#ff5555}.muted{color:#aaa;font-size:13px}
+ul{padding-left:20px;color:#ccc;line-height:1.8}.note-list{display:grid;gap:8px;margin-top:12px}.note-item{padding:10px;background:#0d0d0d;border:1px solid #333;border-radius:9px;overflow-wrap:anywhere}
+footer{text-align:center;color:#777;padding:20px;font-size:12px;letter-spacing:1px}
+@media(max-width:420px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}h1{font-size:25px}}
 </style>
 </head>
 <body>
-<header>
-<h1>😈 SYCO DEMON</h1>
-<p>PERSONAL CONTROL PANEL</p>
-</header>
+<header><div class="logo">PERSONAL CONTROL PANEL</div><h1>😈 SYCO DEMON</h1><p>YOUR SPACE. YOUR CONTROL.</p></header>
 <main>
-<div class="card">
-<h2>Welcome, Demon!</h2>
-<p>Your personal web panel is ready.</p>
-</div>
-<div class="card">
-<h3>📝 Quick Notes</h3>
-<input id="note" placeholder="Write your note here">
-<button onclick="saveNote()">Save Note</button>
-<p id="status"></p>
-</div>
-<div class="card">
-<h3>⚡ System Status</h3>
-<p id="system">Checking...</p>
+<section class="welcome"><h2>Welcome back, Demon.</h2><p>Your personal dashboard is ready. Your saved notes stay on this device.</p></section>
+<div class="grid">
+<section class="card"><h3>⚡ SYSTEM STATUS</h3><div class="stat" id="connection">Checking</div><div class="muted" id="cacheState">Checking offline support…</div></section>
+<section class="card"><h3>🕒 LOCAL TIME</h3><div class="stat" id="clock">--:--</div><div class="muted" id="today"></div></section>
+<section class="card wide"><h3>📝 QUICK NOTES</h3><textarea id="noteInput" placeholder="Write your note here…"></textarea><div class="actions"><button id="saveNote">Save note</button><button class="secondary" id="clearInput">Clear box</button></div><div class="note-list" id="notes"></div><div class="status" id="noteStatus">Notes are stored in this browser on this device.</div></section>
+<section class="card wide"><h3>🧰 QUICK TOOLS</h3><div class="actions"><button class="secondary" id="copyDate">Copy date & time</button><button class="secondary" id="installBtn" hidden>Install panel</button></div><p class="muted" id="installHelp">On Android, use Chrome menu → Add to Home screen if the install button is not shown.</p></section>
+<section class="card wide"><h3>🔒 PRIVACY & STORAGE</h3><p class="muted">Your notes are saved locally in this browser. They are not uploaded to a server. Clearing browser data may erase them.</p><button class="danger" id="deleteNotes">Delete all saved notes</button></section>
 </div>
 </main>
-<footer>SYCO DEMON © 2026</footer>
+<footer>SYCO DEMON © 2026 · PERSONAL PANEL</footer>
 <script>
-function saveNote(){
-localStorage.setItem("sycoNote",
-document.getElementById("note").value);
-document.getElementById("status").innerText="Note Saved!";
-}
-document.getElementById("note").value=
-localStorage.getItem("sycoNote")||"";
-document.getElementById("system").innerText=
-navigator.onLine?"Online":"Offline";
-window.addEventListener("online",()=>{
-document.getElementById("system").innerText="Online";
-});
-window.addEventListener("offline",()=>{
-document.getElementById("system").innerText="Offline";
-});
+const $=id=>document.getElementById(id);
+function updateClock(){const d=new Date();$('clock').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});$('today').textContent=d.toLocaleDateString([], {weekday:'long',year:'numeric',month:'short',day:'numeric'});}
+function connection(){ $('connection').textContent=navigator.onLine?'ONLINE':'OFFLINE'; $('connection').style.color=navigator.onLine?'#55df91':'#ff5555';}
+function getNotes(){try{return JSON.parse(localStorage.getItem('syco-demon-notes')||'[]')}catch{return []}}
+function renderNotes(){const list=$('notes');list.innerHTML='';getNotes().forEach((n,i)=>{const el=document.createElement('div');el.className='note-item';el.textContent=n;const b=document.createElement('button');b.className='secondary';b.textContent='Delete';b.onclick=()=>{const a=getNotes();a.splice(i,1);localStorage.setItem('syco-demon-notes',JSON.stringify(a));renderNotes()};el.appendChild(document.createElement('br'));el.appendChild(b);list.appendChild(el);});}
+$('saveNote').onclick=()=>{const value=$('noteInput').value.trim();if(!value){$('noteStatus').textContent='Write a note first.';return;}const a=getNotes();a.unshift(value);localStorage.setItem('syco-demon-notes',JSON.stringify(a));$('noteInput').value='';$('noteStatus').textContent='Saved on this device.';renderNotes();};
+$('clearInput').onclick=()=>$('noteInput').value='';
+$('deleteNotes').onclick=()=>{if(confirm('Delete all notes saved on this device?')){localStorage.removeItem('syco-demon-notes');renderNotes();$('noteStatus').textContent='All saved notes deleted.';}};
+$('copyDate').onclick=async()=>{const s=new Date().toLocaleString();try{await navigator.clipboard.writeText(s);$('installHelp').textContent='Date and time copied.'}catch{$('installHelp').textContent=s}};
+window.addEventListener('online',connection);window.addEventListener('offline',connection);
+let installPrompt;$('installBtn').onclick=async()=>{if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installBtn').hidden=true;}};
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('installBtn').hidden=false;});
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').then(()=>$('cacheState').textContent='Offline support is ready after this page is cached.').catch(()=>$('cacheState').textContent='Offline setup needs HTTPS hosting.'));}else{$('cacheState').textContent='Service workers are not supported in this browser.';}
+updateClock();setInterval(updateClock,1000);connection();renderNotes();
 </script>
-</body>
-</html>
+</body></html>
