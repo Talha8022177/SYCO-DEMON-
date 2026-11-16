@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>SYCO DEMON</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;background:#090909;color:white;
+font-family:Arial,sans-serif;
+}
+header{
+padding:25px 15px;text-align:center;
+background:#151515;border-bottom:2px solid red;
+}
+h1{color:#ff2020;letter-spacing:3px}
+main{padding:20px;max-width:600px;margin:auto}
+.card{
+background:#171717;padding:20px;
+margin:15px 0;border-radius:14px;
+border:1px solid #333;
+}
+button{
+background:#e00000;color:white;
+border:0;padding:12px 20px;
+border-radius:8px;font-weight:bold;
+}
+input{
+width:100%;padding:12px;
+margin:10px 0;background:#222;
+color:white;border:1px solid #555;
+border-radius:8px;
+}
+footer{text-align:center;padding:25px;color:#888}
+</style>
+</head>
+<body>
+<header>
+<h1>😈 SYCO DEMON</h1>
+<p>PERSONAL CONTROL PANEL</p>
+</header>
+<main>
+<div class="card">
+<h2>Welcome, Demon!</h2>
+<p>Your personal web panel is ready.</p>
+</div>
+<div class="card">
+<h3>📝 Quick Notes</h3>
+<input id="note" placeholder="Write your note here">
+<button onclick="saveNote()">Save Note</button>
+<p id="status"></p>
+</div>
+<div class="card">
+<h3>⚡ System Status</h3>
+<p id="system">Checking...</p>
+</div>
+</main>
+<footer>SYCO DEMON © 2026</footer>
+<script>
+function saveNote(){
+localStorage.setItem("sycoNote",
+document.getElementById("note").value);
+document.getElementById("status").innerText="Note Saved!";
+}
+document.getElementById("note").value=
+localStorage.getItem("sycoNote")||"";
+document.getElementById("system").innerText=
+navigator.onLine?"Online":"Offline";
+window.addEventListener("online",()=>{
+document.getElementById("system").innerText="Online";
+});
+window.addEventListener("offline",()=>{
+document.getElementById("system").innerText="Offline";
+});
+</script>
+</body>
+</html>
